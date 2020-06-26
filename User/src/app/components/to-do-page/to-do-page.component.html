@@ -1,20 +1,47 @@
-<div class="container-fluid text-center">
-    <h1 class="display-2 ">To Do List</h1>
+<div class="container-fluid text-center d-flex">
+    <h1 class="display-4 flex-grow-1 ">To Do List</h1>
+    <button class="btn btn-success" (click)="logout()"> LogOut</button>
 </div>
 
-<div class="container">
+
+<div class="container  bg-white pb-1">
     <div id="scrollable-content" class="p-3 bg-white text-center">
         <div class="row">
-            <div class="col-12 mt-3">
+            <div class="col-12 mt-3" *ngFor="let taskData of data; let i = index;" >
                 <div class="card text-left p-2   bg-light taskCard">
                     <div class="d-flex ml-1">
-                        <div class="flex-grow-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui dolore eum blanditiis veritatis vitae accusamus vel itaque dolores nam ut, reprehenderit aliquid debitis excepturi. Quas vel beatae incidunt molestiae cupiditate.</div>
-                        <div> <button class="btn btn-primary mr-1">edit</button></div>
-                        <div> <button class="btn btn-danger">Reomve</button></div>
+                        <textarea ng-cloak [ngClass]="data[i].complete ? 'strikethrough' :  'null'" class="form-control mr-1" [(ngModel)]="data[i].task" rows = 1 ></textarea>
+                        <div> <button class="btn btn-success mr-1" (click)="update(i)">Update</button></div>
+                        <div> <button class="btn btn-primary mr-1" (click)="complete(i)">Check</button></div>
+                        <div> <button class="btn btn-outline-danger" (click)="remove(i)">Remove</button></div>
                     </div>
                 </div>
             </div>
         </div>
+        
+    </div>
+    <div class="mt-auto mb-1 ml-2 ">
+        <div> <button class="btn btn-warning" (click)="add(i)" data-toggle="modal" data-target="#addModal">Add</button></div>
+    </div>
 
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea type = "text" class="form-control" [(ngModel)]="newTask" rows=1 ></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="addTask()">Add Task</button>
+            </div>
+            </div>
+        </div>
     </div>
 </div>

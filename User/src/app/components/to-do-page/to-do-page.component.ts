@@ -1,3 +1,5 @@
+import { AuthService } from '../../services/auth/auth.service';
+import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToDoPageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private apiService : ApiService,private authService :AuthService) { }
+  data:any[] =  new Array();
+  newTask:string = "";
   ngOnInit() {
+
+    this.apiService.getTask(1).subscribe(tasks =>{
+      let i = 0;
+      // console.log(tasks);
+      for(var j in tasks){
+        // console.log(task);
+        this.data[i] = (tasks[j]);
+        i++;
+      }
+    })
+
+
+  }
+
+  complete(index){
+    this.data[index].complete = !this.data[index].complete;
+    console.log(this.data[index].complete);
+    this.apiService.editTask(1,{
+      taskId:this.data[index]._id,
+      task:this.data[index].task,
+      complete:this.data[index].complete
+    }).subscribe( data=>{
+      console.log(data);
+    })
+
+  }
+
+  remove(index){
+    
+    this.apiService.deleteTask(1,{
+      taskId:this.data[index]._id
+    }).subscribe( data=>{
+      if (index > -1) {
+        this.data.splice(index, 1);
+      }
+      console.log(data);
+    })
+    
+    // array = [2, 9]
+    console.log(this.data); 
+  }
+
+  update(index){
+    // this.data[index].complete = !this.data[index].complete;
+    console.log(this.data[index].complete);
+    this.apiService.editTask(1,{
+      taskId:this.data[index]._id,
+      task:this.data[index].task,
+      complete:this.data[index].complete
+    }).subscribe( data=>{
+      console.log(data);
+    })
+
+  }
+
+  addTask(){
+    this.apiService.addTask(1,{task : this.newTask}).subscribe(data=>{
+      this.data.push(data);
+      this.newTask ="";
+    })
+  }
+
+  logout() {  
+    console.log('logout');  
+    this.authService.logout();  
+    // this.router.navigate(['/login']);  
+    location.reload();
   }
 
 }

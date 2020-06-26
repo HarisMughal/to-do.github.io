@@ -1,6 +1,6 @@
 #scrollable-content {
-    height: 200px;
-    overflow: hidden;
+    height: 500px;
+    overflow: auto;
     background-color: blue;
 }
 
@@ -14,3 +14,7 @@
     box-shadow: beige;
     
 }
+
+.strikethrough {
+    text-decoration: line-through;
+  }

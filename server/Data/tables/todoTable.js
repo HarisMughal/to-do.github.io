@@ -11,6 +11,10 @@ const TodoSchema = new mongoose.Schema({
         type: Number,
         required: true
 
+    },
+    complete:{
+        type:Boolean,
+        required: true
     }
 
 })
