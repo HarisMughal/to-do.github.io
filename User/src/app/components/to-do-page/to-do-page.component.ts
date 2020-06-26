@@ -27,7 +27,7 @@ export class ToDoPageComponent implements OnInit {
 
   }
 
-  complete(index){
+  complete(index){// On completing a task change boolean and update it on server
     this.data[index].complete = !this.data[index].complete;
     console.log(this.data[index].complete);
     this.apiService.editTask(1,{
@@ -40,7 +40,7 @@ export class ToDoPageComponent implements OnInit {
 
   }
 
-  remove(index){
+  remove(index){// On removing a Taks send the id of task to server and delete from view
     
     this.apiService.deleteTask(1,{
       taskId:this.data[index]._id
@@ -68,14 +68,14 @@ export class ToDoPageComponent implements OnInit {
 
   }
 
-  addTask(){
+  addTask(){//On addaing tasks
     this.apiService.addTask(1,{task : this.newTask}).subscribe(data=>{
       this.data.push(data);
       this.newTask ="";
     })
   }
 
-  logout() {  
+  logout() {  /// On logout remove tokens
     console.log('logout');  
     this.authService.logout();  
     // this.router.navigate(['/login']);  
