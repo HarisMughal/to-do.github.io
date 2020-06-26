@@ -1,0 +1,16 @@
+#scrollable-content {
+    height: 200px;
+    overflow: hidden;
+    background-color: blue;
+}
+
+
+.taskCard{
+
+    transition: box-shadow 0.9s ease;
+}
+
+.taskCard :hover{
+    box-shadow: beige;
+    
+}
